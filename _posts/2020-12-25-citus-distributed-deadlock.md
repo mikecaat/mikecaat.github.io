@@ -17,6 +17,8 @@ tags:
   - // pg_locksだけだと、異なるノード間の同一txのロック取得待ち情報をつなげるのが難しい
     - // coordinator側で接続してきたプロセスと各ノード上のbackend_pidの紐付けを管理できれば、pg_locksでもいけそうだけど...
     - // client(≒tx id) -> coordinator上のpid -> 各ノードのbackend pid
+      - // ただ、この場合、Clock-SIのようにcoordinator的なアクセス先が複数存在すると破綻する
+      - // citusの方式だと、各ノードでグローバルtx idは払い出されるが、アクセス先ノードが固定であれば、一意のglobal tx idが払い出される
 
 ## deadlockの対策
 
