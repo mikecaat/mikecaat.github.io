@@ -73,7 +73,8 @@ tags:
   - 各backendごとに分散txが発生しているか、ロック待ちしているかなどをチェック
     - グローバルtxかどうかをworker側でも判断できるようになっているようにみえる
       - BackendData.transactionId
-  - 発生している場合は、lockを保持している、lock待ちしている状態かを考慮して、wait-graph作成  // なぜ最初からworkerを見にいかないのか分かっていない。coordinatorでもロックするリソースがあるということ?
+  - 発生している場合は、lockを保持している、lock待ちしている状態かを考慮して、wait-graph作成  // なぜ最初からworkerを見にいかないのか分かっていない。coordinatorでもデータを保持するなどロックするリソースがあるということかな
+  - pg_locks viewは使わず、直接PostgresqlのPGPROC構造体を操作して、lock状況を確認している
 
 ### 2. グローバルでwait-graphを作成
 
