@@ -84,6 +84,7 @@ tags:
 - [Why Uber Engineering Switched from Postgres to MySQL](https://eng.uber.com/postgres-to-mysql-migration/)
   - secondary indexが多く、updateも多いワークロードの場合、physical address方式(PostgreSQL)よりも、logical address方式(MySQL)の方が有利
     - PostgreSQLの場合、tuple更新時にsecondary indexも含めて、全てのpointerを変更する必要がある
+      - ただ、HOTが使えている場合は、インデックスの更新は不要だと思うけれど...
     - page読み込み/書込みも増えるし、wal書き出しも増えるし
 
 - mvccの場合、index内のduplicate keyを保証する必要がある
@@ -126,6 +127,7 @@ tags:
 - デメリット
   - 複数txが同一ページを操作していると、readのコストは増加
     - 競合が発生しやすいということ? でも、heapでも同じでは?
+    - backendごとにundo logを管理しているので、他のbackendが別fileをopenしないといけないからとか?
   - abortのコストは増加: 再度table情報の書き直しが必要だから
   - updateのコスト増加
     - 実テーブルとundo log領域を2回書く必要がある
