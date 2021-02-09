@@ -37,3 +37,15 @@ SELECT a.datname, relation::regclass, a.pid, l.locktype, l.page, l.tuple, l.virt
 ```
 SELECT pg_backend_pid();
 ```
+
+
+## oid関連
+
+```
+SELECT * FROM pg_class WHERE relname = 'pg_cast_oid_index'
+```
+
+## psql関連
+
+- [よく使うpsqlの便利技10選](https://masahikosawada.github.io/2018/03/16/%E3%82%88%E3%81%8F%E4%BD%BF%E3%81%86psql%E3%81%AE%E4%BE%BF%E5%88%A9%E6%8A%8010%E9%81%B8/)
+
